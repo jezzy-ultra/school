@@ -1,0 +1,7 @@
+.gradle/
+/build/
+/core/build/
+/desktop/build/
+/html/build/
+/android/build/
+/ios/build/

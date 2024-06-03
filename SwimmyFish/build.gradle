@@ -1,0 +1,57 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        google()
+    }
+}
+
+allprojects {
+    apply plugin: "java"
+    apply plugin: "java-library"
+    apply plugin: "idea"
+
+    version = '1.0'
+    ext {
+        appName = "Swimmy Fish"
+        gdxVersion = '1.12.1'
+        roboVMVersion = '2.3.20'
+        amanithsvgVersion = '2.0.1'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+        gradlePluginPortal()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "https://jitpack.io" }
+    }
+}
+
+project(":desktop") {
+    dependencies {
+        implementation project(":core")
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        implementation "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-desktop"
+    }
+}
+
+project(":core") {
+    dependencies {
+        api "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation 'org.javatuples:javatuples:1.2'
+    }
+}
+
+jar {
+    manifest {
+        attributes(
+                "Main-Class": "dev.jezzy.swimmyfish.SwimmyFish"
+        )
+    }
+}
